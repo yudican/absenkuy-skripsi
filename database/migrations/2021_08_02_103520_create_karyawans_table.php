@@ -28,6 +28,7 @@ class CreateKaryawansTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

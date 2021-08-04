@@ -24,6 +24,7 @@ class CreateModelWajahsTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

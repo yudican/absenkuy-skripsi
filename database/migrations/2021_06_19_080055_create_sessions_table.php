@@ -24,6 +24,7 @@ class CreateSessionsTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

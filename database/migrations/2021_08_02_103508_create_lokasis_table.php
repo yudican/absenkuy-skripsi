@@ -23,6 +23,7 @@ class CreateLokasisTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

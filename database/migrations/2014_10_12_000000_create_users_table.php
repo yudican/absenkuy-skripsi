@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
+
         DB::table('users')->insert([
             'id' => 'e29293f2-5fff-45f1-bb5c-612a488d643c',
             'username' => 'admin',

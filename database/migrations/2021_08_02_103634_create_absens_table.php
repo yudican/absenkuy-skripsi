@@ -29,6 +29,7 @@ class CreateAbsensTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *
