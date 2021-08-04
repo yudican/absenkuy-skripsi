@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Models\FaceModel;
-use App\Models\Location;
+use App\Models\Lokasi;
+use App\Models\ModelWajah;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
@@ -19,16 +17,15 @@ class UserController extends Controller
         $user_id = auth()->user()->id;
 
         $user = User::find($user_id);
-        if (!$user->employee->location) {
-            $location = Location::create([
-                'location_name' => $request->location_name,
+        if (!$user->karyawan->location) {
+            $location = Lokasi::create([
+                'nama_lokasi' => $request->nama_lokasi,
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
-                'is_office' => 0,
-                'company_id' => $user->employee->company_id,
+                'lokasi_perusahaan' => 0,
             ]);
 
-            $user->employee->update(['location_id' => $location->id]);
+            $user->karyawan->update(['lokasi_id' => $location->id]);
 
             $respon = [
                 'error' => false,
@@ -39,12 +36,11 @@ class UserController extends Controller
             return response()->json($respon, 200);
         }
 
-        $user->employee->location->update([
-            'location_name' => $request->location_name,
+        $user->karyawan->location->update([
+            'nama_lokasi' => $request->nama_lokasi,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
-            'is_office' => 0,
-            'company_id' => $user->employee->company_id,
+            'lokasi_perusahaan' => 0,
         ]);
 
         $respon = [
@@ -75,10 +71,10 @@ class UserController extends Controller
         $user = User::find($user_id);
 
 
-        FaceModel::create([
-            'face_key' => $request->key,
-            'face_value' => $request->value,
-            'employe_id' => $user->employee->id
+        ModelWajah::create([
+            'key' => $request->key,
+            'value' => $request->value,
+            'npk_karyawan' => $user->karyawan->npk
         ]);
 
         $respon = [
@@ -92,12 +88,12 @@ class UserController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $faces = FaceModel::where('employe_id', $user->employee->id)->first();
+        $faces = ModelWajah::where('npk_karyawan', $user->karyawan->npk)->first();
 
         if ($faces) {
             $respon = [
-                'key' =>  $faces->face_key,
-                'value' =>  $faces->face_value,
+                'key' =>  $faces->key,
+                'value' =>  $faces->value,
             ];
             return response()->json($respon, 200);
         }

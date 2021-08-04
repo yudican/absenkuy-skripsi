@@ -173,7 +173,7 @@ class Location extends Component
   public function _getLatitude()
   {
     $ip = request()->ip();
-    $data = GeoLocation::get($ip);
+    $data = GeoLocation::get('120.188.93.174');
     $this->latitude = $data->latitude;
     $this->longitude = $data->longitude;
   }
