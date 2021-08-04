@@ -26,7 +26,7 @@
             <tbody>
               @foreach ($items as $item)
               <tr>
-                <td>{{ $item->user ? $item->user->karyawan->nama_karyawan : '-' }}</td>
+                <td>{{ $item->user->karyawan ? $item->user->karyawan->nama_karyawan : 'Admin' }}</td>
                 <td>{{ $item->keterangan }}</td>
                 <td>
                   @switch($item->aksi)
