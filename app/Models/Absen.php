@@ -10,6 +10,8 @@ class Absen extends Model
     use HasFactory;
     protected $table = 'absen';
     protected $guarded = [];
+
+    protected $dates = ['waktu_absen'];
     /**
      * Get the karyawan that owns the Absen
      *
