@@ -9,6 +9,7 @@ class ModelWajah extends Model
 {
     use HasFactory;
     protected $table = 'model_wajah';
+    protected $guarded = [];
 
     /**
      * Get the karyawan that owns the ModelWajah

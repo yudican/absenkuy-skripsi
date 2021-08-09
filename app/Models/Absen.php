@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Absen extends Model
 {
     use HasFactory;
-
     protected $table = 'absen';
-
+    protected $guarded = [];
     /**
      * Get the karyawan that owns the Absen
      *
