@@ -211,7 +211,6 @@ class AttendanceController extends Controller
             if (!$absen_masuk) {
                 $data = [
                     [
-                        'id' => Uuid::uuid4()->toString(),
                         'waktu_absen' => $waktu_absen,
                         'type_absen' => $request->type_absen,
                         'status_absen' => $status_absen,
@@ -222,7 +221,6 @@ class AttendanceController extends Controller
                         'npk_karyawan' => $user->karyawan->npk,
                     ],
                     [
-                        'id' => Uuid::uuid6()->toString(),
                         'waktu_absen' => $waktu_absen,
                         'type_absen' => 4,
                         'status_absen' => '0',
@@ -259,7 +257,6 @@ class AttendanceController extends Controller
             $break_in_out = Absen::whereDate('waktu_absen', date('Y-m-d'))->where(['npk_karyawan' => $user->karyawan->npk])->whereIn('type_absen', [2, 3])->orderBy('waktu_absen', 'DESC')->first();
             if (!$break_in_out) {
                 $data = [
-                    'id' => $uuid,
                     'waktu_absen' => $waktu_absen,
                     'type_absen' => $request->type_absen,
                     'status_absen' => '1',
