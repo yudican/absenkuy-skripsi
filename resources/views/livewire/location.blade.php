@@ -22,9 +22,9 @@
       </div>
     </div>
     <div class="col-md-12">
+      @if ($form_active)
       <div class="card">
         <div class="card-body">
-          @if ($form_active)
           <x-text-field type="text" name="nama_lokasi" label="Nama Lokasi" />
           <x-text-field type="text" name="latitude" label="latitude" readonly />
           <x-text-field type="text" name="longitude" label="longitude" readonly />
@@ -35,37 +35,12 @@
             <button class="btn btn-primary pull-right"
               wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
           </div>
-          @else
-          <table class="table table-light">
-            <thead class="thead-light">
-              <tr>
-                <td>Alamat</td>
-                <td>latitude</td>
-                <td>longitude</td>
-                <td>Aksi</td>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($items as $item)
-              <tr>
-                <td>{{ $item->nama_lokasi }}</td>
-                <td>{{ $item->latitude }}</td>
-                <td>{{ $item->longitude }}</td>
-                <td>
-                  <button class="btn btn-success btn-sm" wire:click="getDataById('{{ $item->id }}')"
-                    id="btn-edit-{{ $item->id }}"><i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-modal"
-                    wire:click="getId('{{ $item->id }}')" id="btn-delete-{{ $item->id }}"><i
-                      class="fas fa-trash"></i></button>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          @endif
 
         </div>
       </div>
+      @else
+      <livewire:table.lokasi-table />
+      @endif
     </div>
 
     {{-- Modal confirm --}}

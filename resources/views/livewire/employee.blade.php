@@ -22,47 +22,7 @@
       </div>
     </div>
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <table class="table table-light">
-            <thead class="thead-light">
-              <tr>
-                <td>NPK</td>
-                <td width="15%">Nama karyawan</td>
-                <td>Nomor HP</td>
-                <td>Email</td>
-                <td>Jabatan</td>
-                <td>WFH/WFO</td>
-                <td width="20%">Wilayah Absen</td>
-                <td>Aksi</td>
-
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($items as $item)
-              <tr>
-                <td>{{ $item->npk }}</td>
-                <td>{{ $item->nama_karyawan }}</td>
-                <td>{{ $item->telepon_karyawan }}</td>
-                <td>{{ $item->user->email }}</td>
-                <td>{{ $item->jabatan_karyawan }}</td>
-                <td>{{ $item->whf > 0 ? 'WFH' : 'WFO' }}</td>
-                <td>{{ $item->lokasi_id ? $item->location->nama_lokasi :  '-' }}</td>
-                <td>
-                  <button class="btn btn-success btn-sm" wire:click="getDataById('{{ $item->npk }}')"
-                    id="btn-edit-{{ $item->npk }}" title="Edit Karyawan"><i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-modal"
-                    wire:click="getId('{{ $item->npk }}')" id="btn-delete-{{ $item->npk }}"
-                    title="Hapus Data Karyawan"><i class="fas fa-trash"></i></button>
-                  {{-- <a href="{{route('riwayat.absensi', ['id' => $item->npk])}}" class="btn btn-primary btn-sm"
-                  id="btn-history-{{ $item->npk }}" title="Lihat Riwayat Absensi"><i class="fas fa-list"></i></a> --}}
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <livewire:table.karyawan-table />
     </div>
 
     {{-- Modal form --}}

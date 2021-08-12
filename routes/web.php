@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LaporanAbsenController;
 use App\Http\Livewire\Absen;
 use App\Http\Livewire\CrudGenerator;
 use App\Http\Livewire\Dashboard;
@@ -29,6 +30,7 @@ Route::post('login', [AuthController::class, 'login'])->name('admin.login');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // Crud Generator Route
     Route::get('crud-generator', CrudGenerator::class)->name('crud.generator');
+    Route::post('laporan-absensi', [LaporanAbsenController::class, 'cetak_pdf'])->name('laporan.absensi');
 
     // App Route
     Route::get('dashboard', Dashboard::class)->name('dashboard');

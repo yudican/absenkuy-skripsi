@@ -12,6 +12,7 @@ class Absen extends Component
   public $npk;
   public $tanggal_mulai;
   public $tanggal_selesai;
+  public $show = false;
   public $items = [];
 
   public function render()
@@ -39,7 +40,13 @@ class Absen extends Component
       return $this->emit('showAlertError', ['msg' => 'Tanggal mulai tidak boleh lebih dari tanggal selesai']);
     }
 
-    $this->items = ModelsAbsen::where('npk_karyawan', $this->npk)->whereBetween('waktu_absen', [$this->tanggal_mulai, $this->tanggal_selesai])->orderBy('waktu_absen', 'DESC')->get();
+    $this->emit('setFilter', [
+      'npk' => $this->npk,
+      'tanggal_mulai' => $this->tanggal_mulai,
+      'tanggal_selesai' => $this->tanggal_selesai,
+    ]);
+    $this->show = true;
+    // $this->items = ModelsAbsen::where('npk_karyawan', $this->npk)->whereBetween('waktu_absen', [$this->tanggal_mulai, $this->tanggal_selesai])->orderBy('waktu_absen', 'DESC')->get();
   }
 
   public function _reset()

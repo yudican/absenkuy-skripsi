@@ -32,6 +32,8 @@ class Employee extends Component
   public $update_mode = false;
   public $modal = true;
 
+  protected $listeners = ['getDataById', 'getId'];
+
   public function render()
   {
     $locations = Lokasi::where('lokasi_perusahaan', 1)->get();
@@ -154,8 +156,8 @@ class Employee extends Component
     ];
 
     if (!$this->update_mode) {
-      $rule['npk'] = 'required|unique:karyawan';
-      $rule['telepon_karyawan'] = 'required|unique:karyawan';
+      $rule['npk'] = 'required|unique:karyawan,npk';
+      $rule['telepon_karyawan'] = 'required|unique:karyawan,telepon_karyawan';
       $rule['email_karyawan'] = 'required|unique:users,email';
     }
 
@@ -220,6 +222,7 @@ class Employee extends Component
 
   public function _reset()
   {
+    $this->emit('refreshTable');
     $this->emit('closeModal');
     $this->karyawan_id = null;
     $this->npk = null;

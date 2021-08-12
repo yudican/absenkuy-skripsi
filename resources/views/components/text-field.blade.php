@@ -3,7 +3,7 @@
     <label for="{{$name}}" class="placeholder"><b>{{$label}}</b></label>
     @endif
 
-    <input id="{{$name}}" value="{{$value ?? ''}}" name="{{$name}}" wire:model="{{$name}}" type="{{$type ?? 'text'}}"
-        class="form-control" {{isset($readonly) ? 'readonly' : ''}}>
+    <input id="{{$name}}" value="{{isset($value) ? $value : ''}}" name="{{$name}}" wire:model="{{$name}}"
+        type="{{$type ?? 'text'}}" class="form-control" {{isset($readonly) ? 'readonly' : ''}}>
     <small id="helpId" class="text-danger">{{ $errors->has($name) ? $errors->first($name) : '' }}</small>
 </div>

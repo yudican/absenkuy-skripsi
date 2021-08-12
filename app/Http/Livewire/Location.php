@@ -25,6 +25,8 @@ class Location extends Component
   public $update_mode = false;
   public $modal = false;
 
+  protected $listeners = ['getDataById', 'getId'];
+
   public function mount()
   {
     $this->_getLatitude();
@@ -180,6 +182,7 @@ class Location extends Component
 
   public function _reset()
   {
+    $this->emit('refreshTable');
     $this->emit('closeModal');
     $this->locations_id = null;
     $this->nama_lokasi = null;
