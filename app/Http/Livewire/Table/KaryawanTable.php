@@ -24,7 +24,12 @@ class KaryawanTable extends LivewireDatatable
             Column::name('telepon_karyawan')->label('Telepon'),
             Column::name('user.email')->label('Email'),
             Column::name('jabatan_karyawan')->label('Jabatan'),
-            Column::name('wfh')->label('Status Kerja'),
+            Column::callback('wfh', function ($wfh) {
+                if ($wfh == 1) {
+                    return 'WFH';
+                }
+                return 'WFO';
+            })->label('Status Kerja'),
             Column::callback('location.nama_lokasi', function ($lokasi) {
                 if ($lokasi) {
                     return $lokasi;
