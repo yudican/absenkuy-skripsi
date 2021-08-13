@@ -40,7 +40,13 @@
             <x-text-field type="text" name="nama_karyawan" label="Nama karyawan" />
             <x-text-field type="text" name="telepon_karyawan" label="Nomor HP" />
             <x-text-field type="text" name="email_karyawan" label="Email" />
-            <x-text-field type="text" name="jabatan_karyawan" label="Jabatan" />
+            <x-select name="jabatan_karyawan" label="Jabatan">
+              <option value="">Pilih Salah satu</option>
+              <option value="Staff">Staff</option>
+              <option value="Office Boy">Office Boy</option>
+              <option value="Office Girl">Office Girl</option>
+              <option value="IT Suport">IT Suport</option>
+            </x-select>
             <x-select name="is_whf" label="WFH/WFO">
               <option value="">Pilih Salah satu</option>
               <option value="1">WFH</option>

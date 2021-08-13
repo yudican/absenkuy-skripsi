@@ -165,7 +165,7 @@ class Employee extends Component
       'npk.required' => 'npk tidak boleh kosong',
       'npk.unique' => 'npk sudah terdaftar',
       'nama_karyawan.required' => 'nama tidak boleh kosong',
-      'nama_karyawan.regex' => 'nama tidak harus berupa huruf',
+      'nama_karyawan.regex' => 'nama harus berupa huruf',
       'telepon_karyawan.required' => 'telepon karyawan tidak boleh kosong',
       'telepon_karyawan.unique' => 'telepon karyawan sudah terdaftar',
       'telepon_karyawan.numeric' => 'telepon karyawan harus berupa angka',
