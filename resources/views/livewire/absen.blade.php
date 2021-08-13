@@ -21,7 +21,7 @@
             <x-text-field type="hidden" name="npk" value="{{$npk}}" label="Tanggal Mulai" />
             <div class="row">
               <div class="col-md-4">
-                <x-select name="npk" label="Karyawan">
+                <x-select name="npk" label="Karyawan" wire:change="handleChange($event.target.value)">
                   <option value="">Pilih Karyawan</option>
                   @foreach ($employess as $employee)
                   <option value="{{$employee->npk}}">{{$employee->nama_karyawan}}</option>

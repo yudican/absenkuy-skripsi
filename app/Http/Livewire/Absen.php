@@ -49,6 +49,15 @@ class Absen extends Component
     // $this->items = ModelsAbsen::where('npk_karyawan', $this->npk)->whereBetween('waktu_absen', [$this->tanggal_mulai, $this->tanggal_selesai])->orderBy('waktu_absen', 'DESC')->get();
   }
 
+  public function handleChange($value)
+  {
+    $this->emit('setFilter', [
+      'npk' => $value,
+      'tanggal_mulai' => null,
+      'tanggal_selesai' => null,
+    ]);
+  }
+
   public function _reset()
   {
     $this->npk = null;

@@ -15,7 +15,13 @@ class DataAbsenTable extends LivewireDatatable
     {
         if (count($this->filters)) {
             $tgl_selesai = $this->filters['tanggal_selesai'];
-            return Absen::query()->where('npk_karyawan', $this->filters['npk'])->whereBetween('waktu_absen', [$this->filters['tanggal_mulai'], date('Y-m-d', strtotime($tgl_selesai . ' +1 days'))])->orderBy('waktu_absen', 'DESC');
+            if ($this->filters['npk'] && $this->filters['tanggal_selesai'] && $this->filters['tanggal_mulai']) {
+                return Absen::query()->where('npk_karyawan', $this->filters['npk'])->whereBetween('waktu_absen', [$this->filters['tanggal_mulai'], date('Y-m-d', strtotime($tgl_selesai . ' +1 days'))])->orderBy('waktu_absen', 'DESC');
+            }
+
+            if ($this->filters['npk']) {
+                return Absen::query()->where('npk_karyawan', $this->filters['npk'])->orderBy('waktu_absen', 'DESC');
+            }
         }
         return Absen::query();
     }
