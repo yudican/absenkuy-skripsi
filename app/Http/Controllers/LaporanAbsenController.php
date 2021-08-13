@@ -12,7 +12,8 @@ class LaporanAbsenController extends Controller
 {
     public function cetak_pdf(Request $request)
     {
-        $data = Absen::where('npk_karyawan', $request->npk)->whereBetween('waktu_absen', [$request->tanggal_mulai, $request->tanggal_selesai])->orderBy('waktu_absen', 'DESC')->get();
+        $tanggal_selesai = $request->tanggal_selesai;
+        $data = Absen::where('npk_karyawan', $request->npk)->whereBetween('waktu_absen', [$request->tanggal_mulai, date('Y-m-d', strtotime($tanggal_selesai . ' +1 days'))])->orderBy('waktu_absen', 'DESC')->get();
         $karyawan = Karyawan::find($request->npk);
         $user = $karyawan->user;
 
