@@ -148,27 +148,30 @@ class Employee extends Component
   {
     $rule = [
       'npk'  => 'required',
-      'nama_karyawan'  => 'required',
-      'telepon_karyawan'  => 'required',
-      'email_karyawan'  => 'required',
+      'nama_karyawan'  => 'required|regex:/^[a-zA-Z]+$/u',
+      'telepon_karyawan'  => 'required|numeric',
+      'email_karyawan'  => 'required|email',
       'jabatan_karyawan'  => 'required',
       'is_whf'  => 'required',
     ];
 
     if (!$this->update_mode) {
       $rule['npk'] = 'required|unique:karyawan,npk';
-      $rule['telepon_karyawan'] = 'required|unique:karyawan,telepon_karyawan';
-      $rule['email_karyawan'] = 'required|unique:users,email';
+      $rule['telepon_karyawan'] = 'required|numeric|unique:karyawan,telepon_karyawan';
+      $rule['email_karyawan'] = 'required|email|unique:users,email';
     }
 
     $message = [
       'npk.required' => 'npk tidak boleh kosong',
       'npk.unique' => 'npk sudah terdaftar',
       'nama_karyawan.required' => 'nama tidak boleh kosong',
+      'nama_karyawan.regex' => 'nama tidak harus berupa huruf',
       'telepon_karyawan.required' => 'telepon karyawan tidak boleh kosong',
       'telepon_karyawan.unique' => 'telepon karyawan sudah terdaftar',
+      'telepon_karyawan.numeric' => 'telepon karyawan harus berupa angka',
       'email_karyawan.required' => 'email karyawan tidak boleh kosong',
       'email_karyawan.unique' => 'email karyawan sudah terdaftar',
+      'email_karyawan.email' => 'email karyawan tidak valid',
       'jabatan_karyawan.required' => 'jabatan karyawan tidak boleh kosong',
       'is_whf.required' => 'data tidak boleh kosong',
     ];
