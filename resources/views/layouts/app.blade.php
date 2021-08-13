@@ -114,8 +114,8 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    {{Auth::user()->name}}
-                                    <span class="user-level">Administrator</span>
+                                    {{Auth::user()->karyawan->nama_karyawan}}
+                                    <span class="user-level text-uppercase">{{Auth::user()->level}}</span>
                                 </span>
                             </a>
                         </div>
@@ -156,12 +156,12 @@
                             </a>
                         </li>
 
-                        <li class="nav-item {{request()->routeIs('crud.generator') ? 'active' : ''}}">
-                            <a href="{{route('crud.generator')}}">
-                                <i class="fas fa-cogs"></i>
-                                <p>Crud Generator</p>
-                            </a>
-                        </li>
+                        {{-- <li class="nav-item {{request()->routeIs('crud.generator') ? 'active' : ''}}">
+                        <a href="{{route('crud.generator')}}">
+                            <i class="fas fa-cogs"></i>
+                            <p>Crud Generator</p>
+                        </a>
+                        </li> --}}
 
 
                         {{-- <li class="nav-item {{request()->routeIs('attendance.report') ? 'active' : ''}}">

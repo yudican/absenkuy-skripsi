@@ -29,6 +29,10 @@ class AuthController extends Controller
             return redirect('login')->with(['error' => 'Username tidak terdaftar']);
         }
 
+        if ($user->level == 'karyawan') {
+            return redirect('login')->with(['error' => 'Anda tidak diizinkan masuk']);
+        }
+
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)) {
             return redirect('login')->with(['error' => 'Username atau password salah']);
