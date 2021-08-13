@@ -93,7 +93,7 @@ class LivewireDatatable extends Component
     $this->initialiseSort();
 
     // check if there are sorting vars in the session
-    $this->sort = session()->get('dt_' . $this->name . '_sort', $this->sort);
+    // $this->sort = session()->get('dt_' . $this->name . '_sort', $this->sort);
     $this->direction = session()->get('dt_' . $this->name . '_direction', $this->direction);
     $this->perPage = $perPage ?? config('livewire-datatables.default_per_page', 10);
   }

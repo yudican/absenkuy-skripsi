@@ -43,7 +43,7 @@
             <div class="logo-header" data-background-color="blue">
 
                 <a href="{{route('dashboard')}}" class="logo">
-                    <img src="{{asset('assets/img/logo-admin.svg')}}" style="height: 40px" alt="navbar brand"
+                    <img src="{{asset('assets/img/logo.svg')}}" style="height: 40px" alt="navbar brand"
                         class="navbar-brand">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
