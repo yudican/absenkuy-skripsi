@@ -217,7 +217,7 @@ class AttendanceController extends Controller
                         'keterangan' => $keterangan,
                         'latitude' => $request->latitude,
                         'longitude' => $request->longitude,
-                        'nama_lokasi' => $request->place_name,
+                        'nama_lokasi' => $request->nama_lokasi,
                         'npk_karyawan' => $user->karyawan->npk,
                     ],
                     [
@@ -245,7 +245,7 @@ class AttendanceController extends Controller
                     'keterangan' => $keterangan,
                     'latitude' => $request->latitude,
                     'longitude' => $request->longitude,
-                    'nama_lokasi' => $request->place_name,
+                    'nama_lokasi' => $request->nama_lokasi,
                     'npk_karyawan' => $user->karyawan->npk,
                 ];
                 $absen_pulang->update($data);
@@ -263,7 +263,7 @@ class AttendanceController extends Controller
                     'keterangan' => null,
                     'latitude' => $request->latitude,
                     'longitude' => $request->longitude,
-                    'nama_lokasi' => $request->place_name,
+                    'nama_lokasi' => $request->nama_lokasi,
                     'npk_karyawan' => $user->karyawan->npk,
                 ];
 
