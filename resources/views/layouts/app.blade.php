@@ -114,7 +114,7 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    {{Auth::user()->karyawan->nama_karyawan}}
+                                    {{Auth::user()->karyawan ? Auth::user()->karyawan->nama_karyawan : Auth::user()->email}}
                                     <span class="user-level text-uppercase">{{Auth::user()->level}}</span>
                                 </span>
                             </a>
