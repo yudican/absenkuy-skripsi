@@ -148,7 +148,7 @@ class Employee extends Component
   {
     $rule = [
       'npk'  => 'required',
-      'nama_karyawan'  => 'required|regex:/^[a-zA-Z]+$/u',
+      'nama_karyawan'  => 'required',
       'telepon_karyawan'  => 'required|numeric',
       'email_karyawan'  => 'required|email',
       'jabatan_karyawan'  => 'required',
