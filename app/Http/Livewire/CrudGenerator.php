@@ -23,7 +23,7 @@ class CrudGenerator extends Component
     public function mount()
     {
         $table_name = 'Tables_in_' . config('database.database_name');
-        $exlude_table = ['failed_jobs', 'migrations', 'password_resets', 'permission_role', 'permissions', 'personal_access_tokens', 'role_user', 'roles', 'sessions', 'team_user', 'teams', 'users'];
+        $exlude_table = ['tbl_failed_jobs', 'tbl_migrations', 'tbl_password_resets', 'tbl_permission_role', 'tbl_permissions', 'tbl_personal_access_tokens', 'tbl_role_user', 'tbl_roles', 'tbl_sessions', 'tbl_team_user', 'tbl_teams', 'tbl_users'];
         $columns = Schema::getAllTables();
         foreach ($columns as $key => $value) {
             if (!in_array($value->$table_name, $exlude_table)) {

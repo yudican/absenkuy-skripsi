@@ -4,8 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LaporanAbsenController;
 use App\Http\Livewire\Absen;
 use App\Http\Livewire\CrudGenerator;
+use App\Http\Livewire\Cuti;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Employee;
+use App\Http\Livewire\Izin;
 use App\Http\Livewire\Location;
 use App\Http\Livewire\Log;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +42,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('data-karyawan', Employee::class)->name('data.karyawan');
     Route::get('data-absen', Absen::class)->name('data.absen');
     Route::get('log', Log::class)->name('log');
+    Route::get('izin', Izin::class)->name('izin');
+    Route::get('cuti', Cuti::class)->name('cuti');
 });

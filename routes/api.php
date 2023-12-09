@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CutiController;
+use App\Http\Controllers\Api\IzinController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +33,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('upload_face', [UserController::class, 'uploadFace'])->name('upload.face');
     Route::get('get_faces', [UserController::class, 'getFace'])->name('get.face');
     Route::get('riwayat-absen', [AttendanceController::class, 'historyAbsen'])->name('riwayat.absensi.api');
+
+    Route::get('cuti/list', [CutiController::class, 'listCuti'])->name('cuti.index');
+    Route::post('cuti/pengajuan', [CutiController::class, 'pengajuanCuti'])->name('cuti.form');
+
+    Route::get('izin/list', [IzinController::class, 'listIzin'])->name('izin.index');
+    Route::post('izin/pengajuan', [IzinController::class, 'pengajuanIzin'])->name('izin.form');
 });

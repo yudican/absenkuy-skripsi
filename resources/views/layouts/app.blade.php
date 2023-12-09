@@ -43,11 +43,9 @@
             <div class="logo-header" data-background-color="blue">
 
                 <a href="{{route('dashboard')}}" class="logo">
-                    <img src="{{asset('assets/img/logo.svg')}}" style="height: 30px" alt="navbar brand"
-                        class="navbar-brand">
+                    <img src="{{asset('assets/img/logo.svg')}}" style="height: 30px" alt="navbar brand" class="navbar-brand">
                 </a>
-                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
-                    data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
                         <i class="icon-menu"></i>
                     </span>
@@ -79,8 +77,7 @@
                     </div> --}}
                     <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                         {{-- <li class="nav-item toggle-nav-search hidden-caret">
-                            <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button"
-                                aria-expanded="false" aria-controls="search-nav">
+                            <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
                                 <i class="fa fa-search"></i>
                             </a>
                         </li> --}}
@@ -88,8 +85,7 @@
                         <li class="nav-item dropdown hidden-caret">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a class="nav-link" id="notifDropdown" title="Logout" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                <a class="nav-link" id="notifDropdown" title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                                                         this.closest('form').submit();">
                                     <i class="fas fa-power-off"></i>
                                 </a>
@@ -155,20 +151,32 @@
                                 <p>Log</p>
                             </a>
                         </li>
+                        <li class="nav-item {{request()->routeIs('izin') ? 'active' : ''}}">
+                            <a href="{{route('izin')}}">
+                                <i class="fas fa-clock"></i>
+                                <p>Izin</p>
+                            </a>
+                        </li>
+                        <li class="nav-item {{request()->routeIs('cuti') ? 'active' : ''}}">
+                            <a href="{{route('cuti')}}">
+                                <i class="fas fa-clock"></i>
+                                <p>Cuti</p>
+                            </a>
+                        </li>
 
                         {{-- <li class="nav-item {{request()->routeIs('crud.generator') ? 'active' : ''}}">
-                        <a href="{{route('crud.generator')}}">
-                            <i class="fas fa-cogs"></i>
-                            <p>Crud Generator</p>
-                        </a>
+                            <a href="{{route('crud.generator')}}">
+                                <i class="fas fa-cogs"></i>
+                                <p>Crud Generator</p>
+                            </a>
                         </li> --}}
 
 
                         {{-- <li class="nav-item {{request()->routeIs('attendance.report') ? 'active' : ''}}">
-                        <a href="{{route('attendance.report')}}">
-                            <i class="fas fa-cogs"></i>
-                            <p>Log Absensi</p>
-                        </a>
+                            <a href="{{route('attendance.report')}}">
+                                <i class="fas fa-cogs"></i>
+                                <p>Log Absensi</p>
+                            </a>
                         </li> --}}
 
                     </ul>
@@ -183,8 +191,7 @@
                 <div class="container-fluid">
 
                     <div class="copyright ml-auto">
-                        {{date('Y')}}, made with <i class="fa fa-heart heart text-danger"></i> by <a
-                            href="http://www.themekita.com">ThemeKita</a>
+                        {{date('Y')}}, made with <i class="fa fa-heart heart text-danger"></i> by <a href="http://www.themekita.com">ThemeKita</a>
                     </div>
                 </div>
             </footer>
