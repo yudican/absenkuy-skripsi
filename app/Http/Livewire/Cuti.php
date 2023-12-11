@@ -26,7 +26,7 @@ class Cuti extends Component
   protected $listeners = ['getDataById', 'getId'];
   public function render()
   {
-    return view('livewire.izin', [
+    return view('livewire.cuti', [
       'items' => ModelsCuti::all(),
       'users' => User::where('level', 'karyawan')->get(),
     ]);
