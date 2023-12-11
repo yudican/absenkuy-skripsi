@@ -8,7 +8,7 @@ use Mediconesystems\LivewireDatatables\Column;
 
 class CutiTable extends LivewireDatatable
 {
-  public $sort = 'nama_lokasi|asc';
+  public $sort = 'tanggal_cuti|asc';
   public function builder()
   {
     return Cuti::query();

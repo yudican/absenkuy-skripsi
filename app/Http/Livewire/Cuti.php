@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Cuti extends Component
 {
-  public $izin_id;
+  public $cuti_id;
   public $user_id;
   public $tanggal_cuti;
   public $lama_cuti;
@@ -61,7 +61,7 @@ class Cuti extends Component
   {
     $this->_validate();
 
-    $izin = ModelsCuti::find($this->izin_id);
+    $izin = ModelsCuti::find($this->cuti_id);
 
     try {
       DB::beginTransaction();
@@ -88,7 +88,7 @@ class Cuti extends Component
   {
     try {
       DB::beginTransaction();
-      $izin = ModelsCuti::find($this->izin_id);
+      $izin = ModelsCuti::find($this->cuti_id);
       $izin->delete();
       DB::commit();
       $this->_reset();
@@ -115,10 +115,10 @@ class Cuti extends Component
     return $this->validate($rule);
   }
 
-  public function getDataById($izin_id)
+  public function getDataById($cuti_id)
   {
-    $izin = ModelsCuti::find($izin_id);
-    $this->izin_id = $izin->izin_id;
+    $izin = ModelsCuti::find($cuti_id);
+    $this->cuti_id = $izin->id;
     $this->user_id = $izin->user_id;
     $this->tanggal_cuti = $izin->tanggal_cuti;
     $this->alasan_cuti = $izin->alasan_cuti;
@@ -136,10 +136,10 @@ class Cuti extends Component
     $this->update_mode = true;
   }
 
-  public function getId($izin_id)
+  public function getId($cuti_id)
   {
-    $izin = ModelsCuti::find($izin_id);
-    $this->izin_id = $izin->izin_id;
+    $izin = ModelsCuti::find($cuti_id);
+    $this->cuti_id = $izin->id;
   }
 
   public function toggleForm($form)
@@ -157,7 +157,7 @@ class Cuti extends Component
   {
     $this->emit('refreshTable');
     $this->emit('closeModal');
-    $this->izin_id = null;
+    $this->cuti_id = null;
     $this->user_id = null;
     $this->tanggal_cuti = null;
     $this->alasan_cuti = null;

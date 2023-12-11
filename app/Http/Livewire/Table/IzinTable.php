@@ -9,7 +9,7 @@ use Mediconesystems\LivewireDatatables\Column;
 
 class IzinTable extends LivewireDatatable
 {
-  public $sort = 'nama_lokasi|asc';
+  public $sort = 'tanggal_izin|asc';
   public function builder()
   {
     return Izin::query();
