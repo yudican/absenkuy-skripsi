@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceHistoryResource;
 use App\Models\Absen;
 use App\Models\Attendance;
+use App\Models\Lokasi;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -271,6 +272,25 @@ class AttendanceController extends Controller
             }
         }
 
+        if ($request->type_absen == 5 || $request->type_absen == 6) {
+            $uuid = Uuid::uuid4()->toString();
+            $lembur_selesai_lembur = Absen::whereDate('waktu_absen', date('Y-m-d'))->where(['npk_karyawan' => $user->karyawan->npk])->whereIn('type_absen', [5, 6])->orderBy('waktu_absen', 'DESC')->first();
+            if (!$lembur_selesai_lembur) {
+                $data = [
+                    'waktu_absen' => $waktu_absen,
+                    'type_absen' => $request->type_absen,
+                    'status_absen' => '1',
+                    'keterangan' => null,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude,
+                    'nama_lokasi' => $request->nama_lokasi,
+                    'npk_karyawan' => $user->karyawan->npk,
+                ];
+
+                Absen::updateOrCreate(['id' => $uuid], $data);
+            }
+        }
+
         return response()->json([
             'error' => false,
             'message' => 'Absen ' . $this->getStatus($request->type_absen) . ' Berhasil dilakukan, ' . $keterangan,
@@ -317,5 +337,16 @@ class AttendanceController extends Controller
             default:
                 return 'Masuk';
         }
+    }
+
+    public function getLokasi()
+    {
+        $lokasi = Lokasi::where('lokasi_perusahaan', 1)->get();
+
+        return response()->json([
+            'error' => false,
+            'data' => $lokasi,
+            'message' => 'List Lokasi'
+        ], 200);
     }
 }

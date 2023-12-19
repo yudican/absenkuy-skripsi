@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('upload_face', [UserController::class, 'uploadFace'])->name('upload.face');
     Route::get('get_faces', [UserController::class, 'getFace'])->name('get.face');
     Route::get('riwayat-absen', [AttendanceController::class, 'historyAbsen'])->name('riwayat.absensi.api');
+    Route::get('lokasi/list', [AttendanceController::class, 'getLokasi'])->name('lokasi.absensi.api');
 
     Route::get('cuti/list', [CutiController::class, 'listCuti'])->name('cuti.index');
     Route::post('cuti/pengajuan', [CutiController::class, 'pengajuanCuti'])->name('cuti.form');
