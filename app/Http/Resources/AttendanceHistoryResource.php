@@ -42,6 +42,12 @@ class AttendanceHistoryResource extends JsonResource
             case 4:
                 $type_absen = 'Absen Pulang';
                 break;
+            case 5:
+                $type_absen = 'Lembur';
+                break;
+            case 6:
+                $type_absen = 'Selesai Lembur';
+                break;
 
             default:
                 $type_absen = 'Absen Masuk';
