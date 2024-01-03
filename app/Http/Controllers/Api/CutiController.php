@@ -45,7 +45,6 @@ class CutiController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Pengajuan Cuti Gagal',
-                'data' => $cuti
             ], 400);
         }
     }

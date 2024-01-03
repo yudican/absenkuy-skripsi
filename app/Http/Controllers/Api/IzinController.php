@@ -44,7 +44,6 @@ class IzinController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Pengajuan izin gagal',
-                'data' => $izin
             ], 400);
         }
     }
