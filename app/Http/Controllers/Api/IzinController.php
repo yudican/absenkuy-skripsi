@@ -27,7 +27,7 @@ class IzinController extends Controller
             DB::beginTransaction();
 
             $izin = Izin::create([
-                'user_id' => auth()->user()->user_id,
+                'user_id' => auth()->user()->id ?? $request->user_id,
                 'tanggal_izin' => $request->tanggal_izin,
                 'alasan_izin' => $request->alasan_izin,
                 'status_pengajuan' => 0,

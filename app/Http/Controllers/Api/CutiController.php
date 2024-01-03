@@ -27,7 +27,7 @@ class CutiController extends Controller
             DB::beginTransaction();
 
             $cuti = Cuti::create([
-                'user_id' => auth()->user()->user_id,
+                'user_id' => auth()->user()->id ?? $request->user_id,
                 'tanggal_cuti' => $request->tanggal_cuti,
                 'alasan_cuti' => $request->alasan_cuti,
                 'lama_cuti' => $request->lama_cuti,
