@@ -163,7 +163,7 @@ class Location extends Component
       return 0;
     }
     $this->_getLatitude();
-    $this->emit('loadForm', ['latitude' => $this->latitude, 'longitude' => $this->longitude]);
+    $this->emit('loadForm', ['latitude' => floatval($this->latitude), 'longitude' => floatval($this->longitude)]);
   }
 
   public function showModal()

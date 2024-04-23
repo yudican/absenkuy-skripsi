@@ -12,8 +12,7 @@
               <button class="btn btn-danger btn-sm" wire:click="toggleForm(false)"><i class="fas fa-times"></i>
                 Batal</button>
               @else
-              <button class="btn btn-primary btn-sm" wire:click="{{$modal ? 'showModal' : 'toggleForm(true)'}}"><i
-                  class="fas fa-plus"></i>
+              <button class="btn btn-primary btn-sm" wire:click="{{$modal ? 'showModal' : 'toggleForm(true)'}}"><i class="fas fa-plus"></i>
                 Tambah Data Baru</button>
               @endif
             </div>
@@ -25,15 +24,14 @@
       @if ($form_active)
       <div class="card">
         <div class="card-body">
-          <x-text-field type="text" name="nama_lokasi" label="Nama Lokasi" />
+          <x-text-field type="text" name="nama_lokasi" label="Nama Lokasi" id="pac-input" />
           <x-text-field type="text" name="latitude" label="latitude" readonly />
           <x-text-field type="text" name="longitude" label="longitude" readonly />
           <div wire:ignore class="form-group">
             <div id='map' class="w-100" style='height: 500px;'></div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary pull-right"
-              wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
+            <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
           </div>
 
         </div>
@@ -44,8 +42,7 @@
     </div>
 
     {{-- Modal confirm --}}
-    <div id="confirm-modal" wire:ignore.self class="modal fade" tabindex="-1" permission="dialog"
-      aria-labelledby="my-modal-title" aria-hidden="true">
+    <div id="confirm-modal" wire:ignore.self class="modal fade" tabindex="-1" permission="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
       <div class="modal-dialog" permission="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -63,84 +60,95 @@
       </div>
     </div>
   </div>
-  @push('styles')
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-  <link rel="stylesheet"
-    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
-  @endpush
+
   @push('scripts')
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js">
-  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5d1r-uRQtAtNU2dyeCu2qOOABFOEdj1E&libraries=places" async defer></script>
 
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
   <script>
     document.addEventListener('livewire:load', function(e) {
-            var longlat = [{{$longitude}},{{$latitude}}]
-            var accessToken = 'pk.eyJ1IjoieXVkaWNhbmRyYTEiLCJhIjoiY2tuemd6dXhoMDR1ZDJ2cGMzbGk0dHpoaSJ9.Y5TZzkmHQd4Q2hWpDllpsQ';
+            var latitude = {{$latitude}}
+            var longitude = {{$longitude}}
             window.livewire.on('loadForm', (data) => {
-                mapboxgl.accessToken = accessToken
-                longlat = [data.longitude,data.latitude]
-                map = renderMap(longlat)
-                let geocoder = new MapboxGeocoder({
-                    accessToken: mapboxgl.accessToken,
-                    mapboxgl: mapboxgl
-                })
-                map.addControl(geocoder);
-                
-                geocoder.on('result', function (e) {
-                    let coordinates = e.result.geometry.coordinates
-                    @this.set('nama_lokasi', e.result.place_name);
-                    let map = renderMap(coordinates)
-                    setMaker(coordinates,map)
-                    @this.set('latitude', coordinates[1]);
-                    @this.set('longitude', coordinates[0]);
-
-                    
-                })
-                getAddress(longlat.join(','))
-                setMaker(longlat,map)
+                initMap(data)
             });
 
             window.livewire.on('closeModal', (data) => {
                 $('#confirm-modal').modal('hide')
             });
 
-            function renderMap(coordinates) {
-               let map = new mapboxgl.Map({
-                    container: 'map', // container ID
-                    style: 'mapbox://styles/mapbox/streets-v11', // style URL
-                    center: coordinates, // starting position [lng, lat]
-                    zoom: 15 // starting zoom
-                });
-                return map
+         
+
+            async function getAddress(coordinate) {
+              try {
+                const response = await fetch(
+                  `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinate.latitude},${coordinate.longitude}&key=AIzaSyB5d1r-uRQtAtNU2dyeCu2qOOABFOEdj1E`,
+                );
+                const data = await response.json();
+                if (data.status === 'OK') {
+                  const address = data.results[0].formatted_address;
+                  @this.set('nama_lokasi', address);
+                } else {
+                  console.error('Error retrieving address:', data.status);
+                }
+              } catch (error) {
+                console.error('Error retrieving address:', error);
+              }
             }
 
-            function setMaker(coordinates, map) {
-                let marker = new mapboxgl.Marker({
-                    color: "#4834d4",
+            function initMap(data) {
+                const map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: parseFloat(data?.latitude || latitude), lng: parseFloat(data?.longitude || longitude) },
+                    zoom: 12,
+                });
+
+                const input = document.getElementById('pac-input');
+                const searchBox = new google.maps.places.SearchBox(input);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                map.addListener('bounds_changed', function () {
+                    searchBox.setBounds(map.getBounds());
+                });
+
+                let marker = new google.maps.Marker({
+                    position: { lat: parseFloat(data?.latitude || latitude), lng: parseFloat(data?.longitude || longitude) },
+                    map: map,
                     draggable: true,
-                })
-                .setLngLat(coordinates)
-                .addTo(map);
-
-                marker.on('dragend', () => {
-                    let latlong = marker.getLngLat()
-                    @this.set('latitude', latlong.lat);
-                    @this.set('longitude', latlong.lng);
-
-                    getAddress([latlong.lng,latlong.lat].join(','))
                 });
-            }
 
-            function getAddress(coordinate) {
-                let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinate}.json?types=poi&access_token=${accessToken}`
-                fetch(url).then(res => res.json()).then(result => {
-                    @this.set('nama_lokasi', result.features[0].place_name);
-                })
+                marker.addListener('dragend', function (event) {
+                    const position = event.latLng;
+                        @this.set('latitude', position.lat());
+                        @this.set('longitude', position.lng());
+
+                        getAddress({longitude:position.lng(),latitude:position.lat()})
+                });
+
+                searchBox.addListener('places_changed', function () {
+                    const places = searchBox.getPlaces();
+
+                    if (places.length == 0) {
+                        return;
+                    }
+
+                    const bounds = new google.maps.LatLngBounds();
+                    places.forEach(function (place) {
+                        if (!place.geometry) {
+                            console.log("Returned place contains no geometry");
+                            return;
+                        }
+
+                        if (place.geometry.viewport) {
+                            bounds.union(place.geometry.viewport);
+                        } else {
+                            bounds.extend(place.geometry.location);
+                        }
+                    });
+                    map.fitBounds(bounds);
+                });
             }
         })
   </script>
