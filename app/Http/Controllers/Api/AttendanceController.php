@@ -195,11 +195,17 @@ class AttendanceController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $tanggal = date('Y-m-d 08:15:00');
+        $jam_masuk = $user->jam_absen_masuk ?? '08:00';
+        $jam_pulang = $user->jam_absen_pulang ?? '17:00';
+
+        $tanggal = date("Y-m-d $jam_masuk:00");
+        $tanggal_pulang = date("Y-m-d $jam_pulang:00");
         $current_date = Carbon::parse($tanggal);
+        $current_date_pulang = Carbon::parse($tanggal_pulang);
         $waktu_absen = Carbon::now();
         $keterangan = null;
         $status_absen = $current_date->greaterThan($waktu_absen) ? '1' : '0';
+        $status_absen_pulang = $current_date_pulang->greaterThan($waktu_absen) ? '1' : '0';
 
         $data = [];
         if ($request->type_absen == 1) {
@@ -239,10 +245,13 @@ class AttendanceController extends Controller
         if ($request->type_absen == 4) {
             $absen_pulang = Absen::whereDate('waktu_absen', date('Y-m-d'))->where(['npk_karyawan' => $user->karyawan->npk, 'type_absen' => 4])->orderBy('waktu_absen', 'DESC')->first();
             if ($absen_pulang->status_absen == 0) {
+                if (strtotime($waktu_absen) < strtotime($tanggal_pulang)) {
+                    $keterangan = 'Belum Waktunya Absen Pulang';
+                }
                 $data = [
                     'waktu_absen' => $waktu_absen,
                     'type_absen' => $request->type_absen,
-                    'status_absen' => '1',
+                    'status_absen' => $status_absen_pulang,
                     'keterangan' => $keterangan,
                     'latitude' => $request->latitude,
                     'longitude' => $request->longitude,

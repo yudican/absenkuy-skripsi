@@ -12,8 +12,7 @@
               <button class="btn btn-danger btn-sm" wire:click="toggleForm(false)"><i class="fas fa-times"></i>
                 Batal</button>
               @else
-              <button class="btn btn-primary btn-sm" wire:click="{{$modal ? 'showModal' : 'toggleForm(true)'}}"><i
-                  class="fas fa-plus"></i>
+              <button class="btn btn-primary btn-sm" wire:click="{{$modal ? 'showModal' : 'toggleForm(true)'}}"><i class="fas fa-plus"></i>
                 Tambah Data Karyawan</button>
               @endif
             </div>
@@ -26,8 +25,7 @@
     </div>
 
     {{-- Modal form --}}
-    <div id="form-modal" wire:ignore.self class="modal fade" tabindex="-1" permission="dialog"
-      aria-labelledby="my-modal-title" aria-hidden="true">
+    <div id="form-modal" wire:ignore.self class="modal fade" tabindex="-1" permission="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
       <div class="modal-dialog" permission="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -36,10 +34,12 @@
             </h5>
           </div>
           <div class="modal-body">
-            <x-text-field type="text" name="npk" label="NPK" />
+            <x-text-field type="text" name="npk" label="NPK" readonly />
             <x-text-field type="text" name="nama_karyawan" label="Nama karyawan" />
             <x-text-field type="text" name="telepon_karyawan" label="Nomor HP" />
             <x-text-field type="text" name="email_karyawan" label="Email" />
+            <x-text-field type="time" name="jam_absen_masuk" label="Jam Masuk" />
+            <x-text-field type="time" name="jam_absen_pulang" label="Jam Puang" />
             <x-select name="jabatan_karyawan" label="Jabatan">
               <option value="">Pilih Salah satu</option>
               <option value="Staff">Staff</option>
@@ -62,8 +62,7 @@
             @endif
           </div>
           <div class="modal-footer">
-            <button type="button" wire:click={{$update_mode ? 'update' : 'store'}} class="btn btn-primary btn-sm"><i
-                class="fa fa-check pr-2"></i>Simpan</button>
+            <button type="button" wire:click={{$update_mode ? 'update' : 'store' }} class="btn btn-primary btn-sm"><i class="fa fa-check pr-2"></i>Simpan</button>
             <button class="btn btn-danger btn-sm" wire:click='_reset'><i class="fa fa-times pr-2"></i>Batal</a>
           </div>
         </div>
@@ -72,8 +71,7 @@
 
 
     {{-- Modal confirm --}}
-    <div id="confirm-modal" wire:ignore.self class="modal fade" tabindex="-1" permission="dialog"
-      aria-labelledby="my-modal-title" aria-hidden="true">
+    <div id="confirm-modal" wire:ignore.self class="modal fade" tabindex="-1" permission="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
       <div class="modal-dialog" permission="document">
         <div class="modal-content">
           <div class="modal-header">

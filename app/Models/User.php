@@ -31,6 +31,8 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'level',
+        'jam_absen_masuk',
+        'jam_absen_pulang',
         'email',
         'password',
     ];

@@ -23,6 +23,8 @@ class Employee extends Component
   public $telepon_karyawan;
   public $email_karyawan;
   public $jabatan_karyawan;
+  public $jam_absen_masuk;
+  public $jam_absen_pulang;
   public $is_whf;
   public $lokasi_id;
 
@@ -51,6 +53,11 @@ class Employee extends Component
     try {
       DB::beginTransaction();
 
+      $cekuser = User::where('username', $this->npk)->first();
+      if ($cekuser) {
+        return $this->emit('showAlertError', ['msg' => 'Data Gagal Disimpan, NPK Sudah Terdaftar']);
+      }
+
       $user = User::create([
         'username' => $this->npk,
         'email' => $this->email_karyawan,
@@ -63,6 +70,8 @@ class Employee extends Component
         'nama_karyawan'  => $this->nama_karyawan,
         'telepon_karyawan'  => $this->telepon_karyawan,
         'jabatan_karyawan'  => $this->jabatan_karyawan,
+        'jam_absen_masuk'  => $this->jam_absen_masuk ?? '08:00',
+        'jam_absen_pulang'  => $this->jam_absen_pulang ?? '17:00',
         'wfh'  => $this->is_whf,
         'lokasi_id'  => $this->lokasi_id
       ]);
@@ -98,10 +107,12 @@ class Employee extends Component
       ]);
 
       $user->karyawan()->update([
-        'npk'  => $this->npk,
+        // 'npk'  => $this->npk,
         'nama_karyawan'  => $this->nama_karyawan,
         'telepon_karyawan'  => $this->telepon_karyawan,
         'jabatan_karyawan'  => $this->jabatan_karyawan,
+        'jam_absen_masuk'  => $this->jam_absen_masuk ?? '08:00',
+        'jam_absen_pulang'  => $this->jam_absen_pulang ?? '17:00',
         'wfh'  => $this->is_whf,
         'lokasi_id'  => $this->lokasi_id
       ]);
@@ -232,6 +243,8 @@ class Employee extends Component
     $this->nama_karyawan = null;
     $this->telepon_karyawan = null;
     $this->email_karyawan = null;
+    $this->jam_absen_masuk = null;
+    $this->jam_absen_pulang = null;
     $this->jabatan_karyawan = null;
     $this->is_whf = null;
     $this->lokasi_id = null;
