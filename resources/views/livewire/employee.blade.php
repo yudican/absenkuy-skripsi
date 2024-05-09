@@ -34,12 +34,17 @@
             </h5>
           </div>
           <div class="modal-body">
+            @if($update_mode)
             <x-text-field type="text" name="npk" label="NPK" readonly />
+            @else
+            <x-text-field type="text" name="npk" label="NPK" />
+            @endif
+
             <x-text-field type="text" name="nama_karyawan" label="Nama karyawan" />
             <x-text-field type="text" name="telepon_karyawan" label="Nomor HP" />
             <x-text-field type="text" name="email_karyawan" label="Email" />
             <x-text-field type="time" name="jam_absen_masuk" label="Jam Masuk" />
-            <x-text-field type="time" name="jam_absen_pulang" label="Jam Puang" />
+            <x-text-field type="time" name="jam_absen_pulang" label="Jam Pulang" />
             <x-select name="jabatan_karyawan" label="Jabatan">
               <option value="">Pilih Salah satu</option>
               <option value="Staff">Staff</option>
