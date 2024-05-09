@@ -63,7 +63,7 @@
 
   @push('scripts')
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn6jmu8Wwant4jx0MvaOi6oEKT1H7bLuc&libraries=places" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnKk9y4ODCHUI8ud-PINKNkWwcu4-4CUA&libraries=places" async defer></script>
 
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
@@ -83,7 +83,7 @@
             async function getAddress(coordinate) {
               try {
                 const response = await fetch(
-                  `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinate.latitude},${coordinate.longitude}&key=AIzaSyCn6jmu8Wwant4jx0MvaOi6oEKT1H7bLuc`,
+                  `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinate.latitude},${coordinate.longitude}&key=AIzaSyCnKk9y4ODCHUI8ud-PINKNkWwcu4-4CUA`,
                 );
                 const data = await response.json();
                 if (data.status === 'OK') {
