@@ -195,11 +195,11 @@ class AttendanceController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $jam_masuk = $user->jam_absen_masuk ?? '08:00';
-        $jam_pulang = $user->jam_absen_pulang ?? '17:00';
+        $jam_masuk = $user->jam_absen_masuk ?? '08:00:00';
+        $jam_pulang = $user->jam_absen_pulang ?? '17:00:00';
 
-        $tanggal = date("Y-m-d $jam_masuk:00");
-        $tanggal_pulang = date("Y-m-d $jam_pulang:00");
+        $tanggal = date("Y-m-d $jam_masuk");
+        $tanggal_pulang = date("Y-m-d $jam_pulang");
         $current_date = Carbon::parse($tanggal);
         $current_date_pulang = Carbon::parse($tanggal_pulang);
         $waktu_absen = Carbon::now();
